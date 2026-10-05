@@ -14,6 +14,9 @@ _Avoid_: 仓库、工作区、workspace
 Claude Code 的一段连续对话，由会话 ID 唯一标识，归属于一个项目。不论从 CLI 还是 claude-deck 发起，都是同一个会话。
 _Avoid_: 对话、聊天、thread、标签页
 
+**外部活动（External Activity）**:
+会话在 claude-deck 之外（例如 CLI 中）被继续或修改。
+
 ### 会话状态
 
 **会话状态（Session Status）**:
@@ -35,8 +38,15 @@ _Avoid_: 已完成、已停止
 ### 权限
 
 **权限请求（Permission Request）**:
-Claude 执行某个工具前向用户发起的批准请求，用户可以允许、拒绝或在本会话内总是允许。
+Claude 执行某个工具前向用户发起的批准请求，用户可以允许一次、拒绝、会话级允许或项目级允许。
 _Avoid_: 授权弹窗、确认框
+
+**会话级允许（Session Allow）**:
+在当前会话中不再就同类操作发起权限请求，claude-deck 重启后失效。
+
+**项目级允许（Project Allow）**:
+在该项目的所有会话中不再就同类操作发起权限请求，对 CLI 同样生效。
+_Avoid_: 永久允许、全局允许
 
 **权限模式（Permission Mode）**:
 决定 Claude 哪些操作需要发起权限请求的会话级设置，取值沿用 Claude Code 的 default、acceptEdits、plan。
