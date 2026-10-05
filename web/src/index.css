@@ -1,8 +1,10 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* 深浅色跟随系统：Tailwind v4 的 dark: 变体默认基于 prefers-color-scheme */
 @theme {
   --font-sans: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei UI", sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Consolas, "Microsoft YaHei UI", monospace;
 }
 
 html,
@@ -13,4 +15,73 @@ body,
 
 body {
   @apply bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100;
+}
+
+/* 代码高亮（highlight.js 的 class），用变量同时适配深浅色 */
+:root {
+  --hl-keyword: #cf222e;
+  --hl-string: #0a3069;
+  --hl-comment: #6e7781;
+  --hl-number: #0550ae;
+  --hl-title: #8250df;
+  --hl-attr: #953800;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --hl-keyword: #ff7b72;
+    --hl-string: #a5d6ff;
+    --hl-comment: #8b949e;
+    --hl-number: #79c0ff;
+    --hl-title: #d2a8ff;
+    --hl-attr: #ffa657;
+  }
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in,
+.hljs-meta .hljs-keyword {
+  color: var(--hl-keyword);
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition {
+  color: var(--hl-string);
+}
+.hljs-comment,
+.hljs-quote {
+  color: var(--hl-comment);
+  font-style: italic;
+}
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable {
+  color: var(--hl-number);
+}
+.hljs-title,
+.hljs-section,
+.hljs-type {
+  color: var(--hl-title);
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-property,
+.hljs-params {
+  color: var(--hl-attr);
+}
+
+/* 代码块统一用浅底色，覆盖 typography 插件默认的深色 pre */
+.prose pre {
+  @apply bg-neutral-50 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-200;
+}
+
+/* 行内代码：去掉插件默认加的反引号和加粗，改用底色区分 */
+.prose :not(pre) > code {
+  @apply rounded bg-neutral-100 px-1 py-0.5 font-normal dark:bg-neutral-800;
+}
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
 }

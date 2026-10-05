@@ -1,0 +1,20 @@
+import ReactMarkdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
+import { cn } from '@/lib/utils';
+
+export function Markdown({ text, className }: { text: string; className?: string }) {
+  return (
+    <div className={cn('prose prose-sm prose-neutral max-w-none dark:prose-invert', className)}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[[rehypeHighlight, { detect: false }]]}
+        components={{
+          a: ({ node: _node, ...props }) => <a {...props} target="_blank" rel="noreferrer" />,
+        }}
+      >
+        {text}
+      </ReactMarkdown>
+    </div>
+  );
+}

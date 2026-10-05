@@ -14,6 +14,10 @@ _Avoid_: 仓库、工作区、workspace
 Claude Code 的一段连续对话，由会话 ID 唯一标识，归属于一个项目。不论从 CLI 还是 claude-deck 发起，都是同一个会话。
 _Avoid_: 对话、聊天、thread、标签页
 
+**子 agent（Subagent）**:
+会话中由 Claude 派出去独立完成某个子任务的 agent，有自己的对话记录，从属于发起它的那次工具调用，不是独立的会话。
+_Avoid_: 子会话、子任务
+
 **外部活动（External Activity）**:
 会话在 claude-deck 之外（例如 CLI 中）被继续或修改。
 

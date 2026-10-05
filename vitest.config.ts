@@ -8,7 +8,7 @@ export default defineConfig({
     alias: { '@': path.resolve(import.meta.dirname, 'web/src') },
   },
   test: {
-    include: ['server/src/**/*.test.ts', 'web/src/**/*.test.tsx'],
+    include: ['server/src/**/*.test.ts', 'web/src/**/*.test.{ts,tsx}'],
     // 前端测试文件用 `// @vitest-environment jsdom` 单独切换环境
     environment: 'node',
   },
